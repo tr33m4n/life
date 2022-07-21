@@ -1,0 +1,8 @@
+parameters:
+    paths:
+        - %currentWorkingDirectory%/src
+    excludePaths:
+        - *Test*
+        - *tests*
+    level: max
+    ignoreErrors:
