@@ -18,8 +18,8 @@ enum State: int
     public function render(): string
     {
         return match ($this) {
-            State::ALIVE => '███',
-            State::DEAD => ' '
+            State::ALIVE => '██',
+            State::DEAD => '  '
         };
     }
 }

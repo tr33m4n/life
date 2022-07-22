@@ -18,18 +18,62 @@ class Grid
      */
     public function __construct(
         private readonly Bounds $bounds,
-        private readonly CellFactory $cellFactory
+        private readonly CellFactory $cellFactory,
+        private readonly int $seed = 0
     ) {
         $this->init();
     }
 
     public function init(): void
     {
+        mt_srand($this->seed);
+
+        $aliveCells = $this->seedAliveCells();
+
         for ($y = $this->bounds->getMinY(); $y <= $this->bounds->getMaxY(); $y++) {
             for ($x = $this->bounds->getMinX(); $x <= $this->bounds->getMaxX(); $x++) {
-                $this->grid[$y][$x] = $this->cellFactory->create($x, $y, State::DEAD);
+                $this->grid[$y][$x] = $this->cellFactory->create(
+                    $x,
+                    $y,
+                    in_array([$x, $y], $aliveCells)
+                        ? State::ALIVE
+                        : State::DEAD
+                );
             }
         }
+    }
+
+    /**
+     * @param array<int[]> $aliveCells
+     * @return array<int[]>
+     */
+    public function seedAliveCells(array $aliveCells = [], int $cellCount = null): array
+    {
+        if (null === $cellCount) {
+            // Randomly pick number of alive cells that will be created within the bounds of the grid
+            $cellCount = mt_rand(
+                $this->bounds->getMinY() * $this->bounds->getMinX(),
+                $this->bounds->getMaxY() * $this->bounds->getMaxX(),
+            );
+        }
+
+        while ($cellCount > 0) {
+            $coordinates = [
+                mt_rand($this->bounds->getMinX(), $this->bounds->getMaxX()),
+                mt_rand($this->bounds->getMinY(), $this->bounds->getMaxY())
+            ];
+
+            // If coordinates already exist, generate the seed again until a new value is found
+            if (in_array($coordinates, $aliveCells)) {
+                return $this->seedAliveCells($aliveCells, $cellCount);
+            }
+
+            $aliveCells[] = $coordinates;
+
+            $cellCount--;
+        }
+
+        return $aliveCells;
     }
 
     /**
