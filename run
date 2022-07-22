@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use tr33m4n\Life\Grid\Bounds;
+use tr33m4n\Life\Grid\Seed;
 use tr33m4n\Life\Grid\CellFactory;
 use tr33m4n\Life\Grid\Grid;
 use tr33m4n\Life\Output;
@@ -11,6 +12,6 @@ use tr33m4n\Life\Output;
 require 'vendor/autoload.php';
 
 $bounds = new Bounds(1, 24, 1, 24);
-$grid = new Grid($bounds, new CellFactory($bounds));
+$grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, 2));
 
 (new Output())->render($grid);
