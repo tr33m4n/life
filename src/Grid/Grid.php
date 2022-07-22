@@ -9,7 +9,7 @@ use tr33m4n\Life\Exception\GridException;
 class Grid
 {
     /**
-     * @var array<int, \tr33m4n\Life\Grid\Cell[]>
+     * @var array<\tr33m4n\Life\Grid\Cell[]>
      */
     private array $grid = [];
 
@@ -20,9 +20,10 @@ class Grid
         private readonly Bounds $bounds,
         private readonly CellFactory $cellFactory
     ) {
+        $this->init();
     }
 
-    public function build(): void
+    public function init(): void
     {
         for ($y = $this->bounds->getMinY(); $y <= $this->bounds->getMaxY(); $y++) {
             for ($x = $this->bounds->getMinX(); $x <= $this->bounds->getMaxX(); $x++) {
@@ -45,6 +46,11 @@ class Grid
         );
     }
 
+    /**
+     * @throws \tr33m4n\Life\Exception\GridException
+     * @throws \tr33m4n\Life\Exception\OutOfBoundsException
+     * @return \tr33m4n\Life\Grid\Cell[]
+     */
     public function getCellNeighbours(Cell $cell): array
     {
         return array_map(
@@ -55,22 +61,14 @@ class Grid
 
     /**
      * @throws \tr33m4n\Life\Exception\GridException
-     * @return array<string[]>
+     * @return array<\tr33m4n\Life\Grid\Cell[]>
      */
-    public function toArray(): array
+    public function getGrid(): array
     {
         if ([] === $this->grid) {
             throw new GridException('Grid has not been built');
         }
 
-        $output = [];
-        foreach ($this->grid as $y => $column) {
-            /** @var \tr33m4n\Life\Grid\Cell $cell */
-            foreach ($column as $x => $cell) {
-                $output[$y][$x] = (string) $cell;
-            }
-        }
-
-        return $output;
+        return $this->grid;
     }
 }
