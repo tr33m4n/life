@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tr33m4n\Life\Grid;
+namespace tr33m4n\Life;
 
 class Seed
 {
@@ -21,6 +21,8 @@ class Seed
     public function isCellAlive(int $x, int $y): bool
     {
         if ([] === $this->aliveCoordinates) {
+            mt_srand($this->seed);
+
             $this->generateAliveCoordinates();
         }
 
@@ -32,8 +34,6 @@ class Seed
      */
     private function generateAliveCoordinates(int $count = null): array
     {
-        mt_srand($this->seed);
-
         if (null === $count) {
             // Randomly pick number of alive cells that will be created within the bounds of the grid
             $count = mt_rand(

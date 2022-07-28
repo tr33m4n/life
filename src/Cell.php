@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tr33m4n\Life\Grid;
+namespace tr33m4n\Life;
 
 class Cell
 {
@@ -13,7 +13,7 @@ class Cell
         private readonly int $x,
         private readonly int $y,
         private readonly array $neighbours,
-        private readonly State $state
+        private State $state
     ) {
     }
 
@@ -27,17 +27,24 @@ class Cell
         return $this->y;
     }
 
-    public function getState(): State
-    {
-        return $this->state;
-    }
-
     /**
      * @return array<int[]>
      */
     public function getNeighbours(): array
     {
         return $this->neighbours;
+    }
+
+    public function getState(): State
+    {
+        return $this->state;
+    }
+
+    public function setState(State $state): Cell
+    {
+        $this->state = $state;
+
+        return $this;
     }
 
     public function __toString(): string

@@ -3,15 +3,29 @@
 
 declare(strict_types=1);
 
-use tr33m4n\Life\Grid\Bounds;
-use tr33m4n\Life\Grid\Seed;
-use tr33m4n\Life\Grid\CellFactory;
-use tr33m4n\Life\Grid\Grid;
-use tr33m4n\Life\Output;
+use tr33m4n\Life\Bounds;
+use tr33m4n\Life\Seed;
+use tr33m4n\Life\CellFactory;
+use tr33m4n\Life\Grid;
+use tr33m4n\Life\PlayGod;
 
 require 'vendor/autoload.php';
 
 $bounds = new Bounds(1, 24, 1, 24);
 $grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, 2));
+$playGod = new PlayGod();
 
-(new Output())->render($grid);
+$grid->render();
+echo PHP_EOL;
+
+$playGod->execute($grid);
+$grid->render();
+echo PHP_EOL;
+
+$playGod->execute($grid);
+$grid->render();
+echo PHP_EOL;
+
+$playGod->execute($grid);
+$grid->render();
+echo PHP_EOL;

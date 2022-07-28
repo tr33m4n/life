@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tr33m4n\Life\Grid;
+namespace tr33m4n\Life;
 
 use tr33m4n\Life\Exception\OutOfBoundsException;
 
@@ -28,12 +28,12 @@ class CellFactory
         foreach ([$x - 1, $x, $x + 1] as $possibleX) {
             // Possible rows to the top, middle and bottom of the cell
             foreach ([$y - 1, $y, $y + 1] as $possibleY) {
-                // No "middle column, middle row" as that's `$cell`'s coordinates
+                // No "middle column, middle row" as that's this new cell's own coordinates
                 if ($possibleX === $x && $possibleY === $y) {
                     continue;
                 }
 
-                $possibleNeighbours[] = [$x, $y];
+                $possibleNeighbours[] = [$possibleX, $possibleY];
             }
         }
 

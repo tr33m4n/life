@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tr33m4n\Life\Grid;
+namespace tr33m4n\Life;
 
 use tr33m4n\Life\Exception\OutOfBoundsException;
 
@@ -41,7 +41,7 @@ class Bounds
      */
     public function validateX(int $x): void
     {
-        if ($x >= $this->minX || $x <= $this->maxX) {
+        if ($x < $this->minX || $x > $this->maxX) {
             throw new OutOfBoundsException('Value "%s" for X is out of bounds', [$x]);
         }
     }
@@ -51,7 +51,7 @@ class Bounds
      */
     public function validateY(int $y): void
     {
-        if ($y >= $this->minY || $y <= $this->maxY) {
+        if ($y < $this->minY || $y > $this->maxY) {
             throw new OutOfBoundsException('Value "%s" for Y is out of bounds', [$y]);
         }
     }
