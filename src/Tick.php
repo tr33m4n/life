@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace tr33m4n\Life;
 
-class PlayGod
+class Tick
 {
     /**
      * @throws \tr33m4n\Life\Exception\GridException
@@ -13,8 +13,19 @@ class PlayGod
     public function execute(Grid $grid): void
     {
         foreach ($grid as $cell) {
-            foreach ($this->getCellNeighbours($grid, $cell) as $cellNeighbour) {
-                $this->toggleCellState($cellNeighbour);
+            $livingNeighbours = count(
+                array_filter(
+                    $this->getCellNeighbours($grid, $cell),
+                    static fn (Cell $cell): bool => $cell->getState() === State::ALIVE
+                )
+            );
+
+            if ($cell->getState() === State::DEAD && $livingNeighbours === 3) {
+                $cell->setState(State::ALIVE);
+            } elseif ($cell->getState() === State::ALIVE && ($livingNeighbours < 2 || $livingNeighbours > 3)) {
+                $cell->setState(State::DEAD);
+            } else {
+                $cell->setState(State::DEAD);
             }
         }
     }
@@ -30,10 +41,5 @@ class PlayGod
             static fn (array $coordinates): Cell => $grid->getCell(...$coordinates),
             $cell->getNeighbours()
         );
-    }
-
-    private function toggleCellState(Cell $cell): void
-    {
-        $cell->setState($cell->getState() === State::DEAD ? State::ALIVE : State::DEAD);
     }
 }
