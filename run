@@ -15,17 +15,10 @@ $bounds = new Bounds(1, 24, 1, 24);
 $grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, 2));
 $tick = new Tick();
 
-$grid->render();
-echo PHP_EOL;
+while (true) {
+    $grid->render();
+    echo PHP_EOL;
+    $tick->execute($grid);
 
-$tick->execute($grid);
-$grid->render();
-echo PHP_EOL;
-
-$tick->execute($grid);
-$grid->render();
-echo PHP_EOL;
-
-$tick->execute($grid);
-$grid->render();
-echo PHP_EOL;
+    sleep(1);
+}
