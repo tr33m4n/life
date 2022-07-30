@@ -10,13 +10,17 @@ class Render
 
     /**
      * @throws \tr33m4n\Life\Exception\GridException
-     * @param \tr33m4n\Life\Grid $grid
      */
     public function grid(Grid $grid): void
     {
+        $cellStates = [];
+
         foreach ($grid->getCells() as $column) {
             foreach ($column as $cell) {
-                echo $cell->getState()->render();
+                $cellState = $cell->getState();
+
+                $cellStates[] = $cellState;
+                echo $cellState->render();
             }
 
             $this->lines++;
@@ -27,6 +31,21 @@ class Render
         $this->lines++;
 
         echo PHP_EOL;
+
+        $aliveCells = array_filter(
+            $cellStates,
+            static fn (State $state): bool => $state === State::ALIVE
+        );
+
+        $deadCells = array_filter(
+            $cellStates,
+            static fn (State $state): bool => $state === State::DEAD
+        );
+
+        $this->lines += 2;
+
+        echo 'Alive cells: ' . count($aliveCells) . PHP_EOL;
+        echo 'Dead cells: ' . count($deadCells) . PHP_EOL;
     }
 
     public function clear(): void

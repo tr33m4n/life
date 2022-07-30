@@ -8,6 +8,7 @@ class Tick
 {
     public function __construct(
         private readonly Render $render,
+        private readonly float $tick = 0.5
     ) {
     }
 
@@ -36,7 +37,7 @@ class Tick
 
         $this->render->grid($grid);
 
-        sleep(1);
+        usleep((int) $this->tick * 1000000);
 
         $this->render->clear();
     }
