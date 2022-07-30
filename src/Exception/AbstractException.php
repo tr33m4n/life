@@ -12,21 +12,19 @@ abstract class AbstractException extends Exception
     /**
      * AbstractException constructor.
      *
-     * @param string          $message
      * @param string[]|int[]  $replacements
-     * @param int             $code
-     * @param \Throwable|null $previous
+     * @param \Throwable|null $throwable
      */
     public function __construct(
         string $message = '',
         array $replacements = [],
         int $code = 0,
-        Throwable $previous = null
+        Throwable $throwable = null
     ) {
         parent::__construct(
             empty($replacements) ? $message : vsprintf($message, $replacements),
             $code,
-            $previous
+            $throwable
         );
     }
 }

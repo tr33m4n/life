@@ -3,15 +3,9 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\DeadCode\Rector\Cast\RecastingRemovalRector;
-use Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector;
-use Rector\DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector;
-use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
-use Rector\EarlyReturn\Rector\If_\ChangeOrIfReturnToEarlyReturnRector;
+use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
+use Rector\Naming\Rector\Foreach_\RenameForeachValueVariableToMatchExprVariableRector;
 use Rector\Set\ValueObject\SetList;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector;
-use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(SetList::DEAD_CODE);
@@ -24,4 +18,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(SetList::PHP_81);
 
     $rectorConfig->paths([__DIR__ . '/src']);
+    $rectorConfig->skip([
+        RenameForeachValueVariableToMatchExprVariableRector::class => [
+            __DIR__ . '/src/Tick.php',
+            __DIR__ . '/src/Render.php'
+        ],
+        RenameVariableToMatchMethodCallReturnTypeRector::class => [
+            __DIR__ . '/src/Grid.php'
+        ]
+    ]);
 };

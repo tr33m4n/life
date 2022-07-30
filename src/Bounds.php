@@ -6,7 +6,7 @@ namespace tr33m4n\Life;
 
 use tr33m4n\Life\Exception\OutOfBoundsException;
 
-class Bounds
+final class Bounds
 {
     public function __construct(
         private readonly int $minX,

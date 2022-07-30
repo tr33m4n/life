@@ -12,8 +12,6 @@ enum State: int
 
     /**
      * Render state
-     *
-     * @return string
      */
     public function render(): string
     {

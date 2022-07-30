@@ -7,7 +7,7 @@ namespace tr33m4n\Life\Rules;
 use tr33m4n\Life\Cell;
 use tr33m4n\Life\State;
 
-class DefaultRule implements RuleInterface
+final class DefaultRule implements RuleInterface
 {
     /**
      * @inheritDoc

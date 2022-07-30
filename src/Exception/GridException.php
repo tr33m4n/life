@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace tr33m4n\Life\Exception;
 
-class GridException extends AbstractException
+final class GridException extends AbstractException
 {
     //
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace tr33m4n\Life;
 
-class Cell
+final class Cell
 {
     /**
      * @param array<int[]> $neighbours
@@ -40,7 +40,7 @@ class Cell
         return $this->state;
     }
 
-    public function setState(State $state): Cell
+    public function setState(State $state): static
     {
         $this->state = $state;
 

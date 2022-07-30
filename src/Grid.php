@@ -14,7 +14,7 @@ use Traversable;
  * @implements IteratorAggregate<int, \tr33m4n\Life\Cell>
  * @package tr33m4n\Life
  */
-class Grid implements IteratorAggregate
+final class Grid implements IteratorAggregate
 {
     /**
      * @var array<\tr33m4n\Life\Cell[]>
@@ -62,7 +62,7 @@ class Grid implements IteratorAggregate
     }
 
     /**
-     * Get cells
+     * TODO: Replace this with iterator
      *
      * @throws \tr33m4n\Life\Exception\GridException
      * @return array<\tr33m4n\Life\Cell[]>

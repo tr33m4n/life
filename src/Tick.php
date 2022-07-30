@@ -6,7 +6,7 @@ namespace tr33m4n\Life;
 
 use tr33m4n\Life\Rules\RuleInterface;
 
-class Tick
+final class Tick
 {
     public function __construct(
         private readonly Render $render,
