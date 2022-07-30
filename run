@@ -4,21 +4,18 @@
 declare(strict_types=1);
 
 use tr33m4n\Life\Bounds;
-use tr33m4n\Life\Seed;
 use tr33m4n\Life\CellFactory;
 use tr33m4n\Life\Grid;
+use tr33m4n\Life\Render;
+use tr33m4n\Life\Seed;
 use tr33m4n\Life\Tick;
 
 require 'vendor/autoload.php';
 
 $bounds = new Bounds(1, 24, 1, 24);
 $grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, 2));
-$tick = new Tick();
+$tick = new Tick(new Render());
 
 while (true) {
-    $grid->render();
-    echo PHP_EOL;
     $tick->execute($grid);
-
-    sleep(1);
 }

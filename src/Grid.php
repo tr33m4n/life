@@ -56,29 +56,24 @@ class Grid implements IteratorAggregate
         $this->bounds->validate($x, $y);
 
         return $this->grid[$y][$x] ?? throw new GridException(
-                'Grid cell at "%s,%s" does not exist',
-                [$x, $y]
-            );
+            'Grid cell at "%s,%s" does not exist',
+            [$x, $y]
+        );
     }
 
     /**
-     * Render grid
+     * Get cells
      *
      * @throws \tr33m4n\Life\Exception\GridException
+     * @return array<\tr33m4n\Life\Cell[]>
      */
-    public function render(): void
+    public function getCells(): array
     {
         if ([] === $this->grid) {
             throw new GridException('Grid has not been built');
         }
 
-        foreach ($this->grid as $column) {
-            foreach ($column as $cell) {
-                echo $cell->getState()->render();
-            }
-
-            echo PHP_EOL;
-        }
+        return $this->grid;
     }
 
     /**

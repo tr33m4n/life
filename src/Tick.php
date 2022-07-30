@@ -6,6 +6,11 @@ namespace tr33m4n\Life;
 
 class Tick
 {
+    public function __construct(
+        private readonly Render $render,
+    ) {
+    }
+
     /**
      * @throws \tr33m4n\Life\Exception\GridException
      * @throws \tr33m4n\Life\Exception\OutOfBoundsException
@@ -28,6 +33,12 @@ class Tick
                 $cell->setState(State::DEAD);
             }
         }
+
+        $this->render->grid($grid);
+
+        sleep(1);
+
+        $this->render->clear();
     }
 
     /**
