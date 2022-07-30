@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace tr33m4n\Life;
 
-use tr33m4n\Life\Rules\RuleInterface;
-
 final class Tick
 {
     public function __construct(
+        private readonly Config $config,
         private readonly Render $render,
-        private readonly RuleInterface $rule,
         private readonly float $tick = 0.7
     ) {
     }
@@ -22,7 +20,7 @@ final class Tick
     public function execute(Grid $grid): void
     {
         foreach ($grid as $cell) {
-            $this->rule->apply($cell, $this->getCellNeighbours($grid, $cell));
+            $this->config->getRule()->apply($cell, $this->getCellNeighbours($grid, $cell));
         }
 
         $this->render->grid($grid);

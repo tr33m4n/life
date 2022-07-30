@@ -9,7 +9,7 @@ use tr33m4n\Life\Exception\OutOfBoundsException;
 final class CellFactory
 {
     public function __construct(
-        private readonly Bounds $bounds
+        private readonly Config $config
     ) {
     }
 
@@ -42,7 +42,7 @@ final class CellFactory
             function (array $coordinates): bool {
                 try {
                     // Filter any coordinates that are out of bounds
-                    $this->bounds->validate(...$coordinates);
+                    $this->config->getBounds()->validate(...$coordinates);
                 } catch (OutOfBoundsException) {
                     return false;
                 }

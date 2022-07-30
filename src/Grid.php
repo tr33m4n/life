@@ -25,21 +25,23 @@ final class Grid implements IteratorAggregate
      * Grid constructor.
      */
     public function __construct(
-        private readonly Bounds $bounds,
-        private readonly CellFactory $cellFactory,
-        private readonly Seed $seed
+        private readonly Config $config,
+        private readonly CellFactory $cellFactory
     ) {
         $this->init();
     }
 
     public function init(): void
     {
-        for ($y = $this->bounds->getMinY(); $y <= $this->bounds->getMaxY(); $y++) {
-            for ($x = $this->bounds->getMinX(); $x <= $this->bounds->getMaxX(); $x++) {
+        $bounds = $this->config->getBounds();
+        $seed = $this->config->getSeed();
+
+        for ($y = $bounds->getMinY(); $y <= $bounds->getMaxY(); $y++) {
+            for ($x = $bounds->getMinX(); $x <= $bounds->getMaxX(); $x++) {
                 $this->grid[$y][$x] = $this->cellFactory->create(
                     $x,
                     $y,
-                    $this->seed->isCellAlive($x, $y)
+                    $seed->isCellAlive($x, $y)
                         ? State::ALIVE
                         : State::DEAD
                 );
@@ -53,7 +55,7 @@ final class Grid implements IteratorAggregate
      */
     public function getCell(int $x, int $y): Cell
     {
-        $this->bounds->validate($x, $y);
+        $this->config->getBounds()->validate($x, $y);
 
         return $this->grid[$y][$x] ?? throw new GridException(
             'Grid cell at "%s,%s" does not exist',

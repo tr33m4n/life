@@ -23,7 +23,7 @@ final class DefaultRule implements RuleInterface
 
         if ($cell->getState() === State::DEAD && $livingNeighbours === 3) {
             $cell->setState(State::ALIVE);
-        } elseif ($cell->getState() === State::ALIVE && ($livingNeighbours === 2 || $livingNeighbours === 3)) {
+        } elseif ($cell->getState() === State::ALIVE && in_array($livingNeighbours, [2, 3])) {
             $cell->setState(State::ALIVE);
         } else {
             $cell->setState(State::DEAD);

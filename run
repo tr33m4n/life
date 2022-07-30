@@ -3,12 +3,11 @@
 
 declare(strict_types=1);
 
-use tr33m4n\Life\Bounds;
 use tr33m4n\Life\CellFactory;
+use tr33m4n\Life\Config;
 use tr33m4n\Life\Grid;
+use tr33m4n\Life\Patterns\GliderGun;
 use tr33m4n\Life\Render;
-use tr33m4n\Life\Rules\DefaultRule;
-use tr33m4n\Life\Seed;
 use tr33m4n\Life\Tick;
 
 require 'vendor/autoload.php';
@@ -28,9 +27,15 @@ foreach (getopt('x:y:s:t:') as $key => $value) {
     $options[$key] = $value;
 }
 
-$bounds = new Bounds(1, (int) $options['x'], 1, (int) $options['y']);
-$grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, (int) $options['s']));
-$tick = new Tick(new Render(), new DefaultRule(), (float) $options['t']);
+$config = new Config(
+    (int) $options['x'],
+    (int) $options['y'],
+    (int) $options['s'],
+    new GliderGun()
+);
+
+$grid = new Grid($config, new CellFactory($config));
+$tick = new Tick($config, new Render(), (float) $options['t']);
 
 while (true) {
     $tick->execute($grid);
