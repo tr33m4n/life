@@ -8,7 +8,7 @@ class Tick
 {
     public function __construct(
         private readonly Render $render,
-        private readonly float $tick = 0.5
+        private readonly float $tick = 0.7
     ) {
     }
 

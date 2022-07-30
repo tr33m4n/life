@@ -12,9 +12,24 @@ use tr33m4n\Life\Tick;
 
 require 'vendor/autoload.php';
 
-$bounds = new Bounds(1, 24, 1, 24);
-$grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, 2));
-$tick = new Tick(new Render());
+$options = [
+    'x' => 24, // X
+    'y' => 24, // Y
+    's' => 1, // Seed
+    't' => 0.7 // Tick
+];
+
+foreach (getopt('x:y:s:t:') as $key => $value) {
+    if (!array_key_exists($key, $options)) {
+        continue;
+    }
+
+    $options[$key] = $value;
+}
+
+$bounds = new Bounds(1, (int) $options['x'], 1, (int) $options['y']);
+$grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, (int) $options['s']));
+$tick = new Tick(new Render(), (float) $options['t']);
 
 while (true) {
     $tick->execute($grid);
