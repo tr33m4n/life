@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace tr33m4n\Life;
 
+use tr33m4n\Life\Rules\RuleInterface;
+
 class Tick
 {
     public function __construct(
         private readonly Render $render,
+        private readonly RuleInterface $rule,
         private readonly float $tick = 0.7
     ) {
     }
@@ -19,20 +22,7 @@ class Tick
     public function execute(Grid $grid): void
     {
         foreach ($grid as $cell) {
-            $livingNeighbours = count(
-                array_filter(
-                    $this->getCellNeighbours($grid, $cell),
-                    static fn (Cell $cell): bool => $cell->getState() === State::ALIVE
-                )
-            );
-
-            if ($cell->getState() === State::DEAD && $livingNeighbours === 3) {
-                $cell->setState(State::ALIVE);
-            } elseif ($cell->getState() === State::ALIVE && ($livingNeighbours === 2 || $livingNeighbours === 3)) {
-                $cell->setState(State::ALIVE);
-            } else {
-                $cell->setState(State::DEAD);
-            }
+            $this->rule->apply($cell, $this->getCellNeighbours($grid, $cell));
         }
 
         $this->render->grid($grid);

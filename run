@@ -7,6 +7,7 @@ use tr33m4n\Life\Bounds;
 use tr33m4n\Life\CellFactory;
 use tr33m4n\Life\Grid;
 use tr33m4n\Life\Render;
+use tr33m4n\Life\Rules\DefaultRule;
 use tr33m4n\Life\Seed;
 use tr33m4n\Life\Tick;
 
@@ -29,7 +30,7 @@ foreach (getopt('x:y:s:t:') as $key => $value) {
 
 $bounds = new Bounds(1, (int) $options['x'], 1, (int) $options['y']);
 $grid = new Grid($bounds, new CellFactory($bounds), new Seed($bounds, (int) $options['s']));
-$tick = new Tick(new Render(), (float) $options['t']);
+$tick = new Tick(new Render(), new DefaultRule(), (float) $options['t']);
 
 while (true) {
     $tick->execute($grid);
