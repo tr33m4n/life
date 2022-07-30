@@ -28,8 +28,6 @@ class Render
             echo PHP_EOL;
         }
 
-        $this->lines++;
-
         echo PHP_EOL;
 
         $aliveCells = array_filter(
@@ -42,10 +40,11 @@ class Render
             static fn (State $state): bool => $state === State::DEAD
         );
 
-        $this->lines += 2;
-
         echo 'Alive cells: ' . count($aliveCells) . PHP_EOL;
         echo 'Dead cells: ' . count($deadCells) . PHP_EOL;
+
+        // Additional EOL and 2 stat lines
+        $this->lines += 3;
     }
 
     public function clear(): void
