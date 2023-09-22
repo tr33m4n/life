@@ -8,7 +8,7 @@ php ./run
 ```
 If you're feeling adventurous you can pass it some X and Y parameters, eg:
 ```shell
-php ./run -x 50 -y50
+php ./run -x 50 -y 50
 ```
 However, no guarantee on whether it will work or not! This was mainly built for my own learning to get to grips with the
 new features of PHP 8
