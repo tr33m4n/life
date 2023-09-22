@@ -31,7 +31,7 @@ $config = new Config(
     (int) $options['x'],
     (int) $options['y'],
     (int) $options['s'],
-    new GliderGun()
+    // new GliderGun() Not ready for prime time!
 );
 
 $grid = new Grid($config, new CellFactory($config));
