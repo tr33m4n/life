@@ -2,6 +2,8 @@
 
 A very basic Conway's Game of Life implementation https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life built in PHP.
 
+## Make sure you're environment is running PHP 8+ before executing
+
 To run:
 ```shell
 php ./run
