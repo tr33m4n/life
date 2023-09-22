@@ -6,7 +6,6 @@ declare(strict_types=1);
 use tr33m4n\Life\CellFactory;
 use tr33m4n\Life\Config;
 use tr33m4n\Life\Grid;
-use tr33m4n\Life\Patterns\GliderGun;
 use tr33m4n\Life\Render;
 use tr33m4n\Life\Tick;
 
