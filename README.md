@@ -6,6 +6,9 @@ A very basic Conway's Game of Life implementation https://en.wikipedia.org/wiki/
 
 To run:
 ```shell
+composer install
+```
+```shell
 php ./run
 ```
 If you're feeling adventurous you can pass it some X and Y parameters, eg:
